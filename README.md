@@ -5,10 +5,12 @@
 
 ## Запуск
 - `python -m venv .venv`
-- `./.venv/Scripts/python.exe -m pip install -r requirements.txt`
+- Git Bash on Windows: `source .venv/Scripts/activate`
+- WSL / Linux: `source .venv/bin/activate`
+- `python -m pip install -r requirements.txt`
 - `bash ./run_all.sh`
-- `./.venv/Scripts/jupyter.exe lab`
+- `python -m jupyter lab`
 
 ## Структура
 - `ex00`-`ex05` содержат решения по упражнениям в отдельных notebooks.
-- `data/legacy` хранит официальные файлы diabetes dataset из `scikit-learn 0.22.2.post1`, чтобы `ex04` воспроизводил audit-значения без дрейфа новых версий.
+- `ex04` загружает diabetes dataset напрямую через `sklearn.datasets.load_diabetes(as_frame=True)`, как в subject.

@@ -3,10 +3,13 @@
 set -euo pipefail
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-JUPYTER="$ROOT_DIR/.venv/Scripts/jupyter.exe"
 export PYTHONWARNINGS="ignore::RuntimeWarning:zmq._future"
 
-if [[ ! -x "$JUPYTER" ]]; then
+if [[ -x "$ROOT_DIR/.venv/bin/python" ]]; then
+  PYTHON="$ROOT_DIR/.venv/bin/python"
+elif [[ -x "$ROOT_DIR/.venv/Scripts/python.exe" ]]; then
+  PYTHON="$ROOT_DIR/.venv/Scripts/python.exe"
+else
   echo "Local virtual environment is missing. Create .venv and install requirements first." >&2
   exit 1
 fi
@@ -22,7 +25,7 @@ notebooks=(
 
 for notebook in "${notebooks[@]}"; do
   echo "Executing $notebook"
-  "$JUPYTER" nbconvert \
+  "$PYTHON" -m jupyter nbconvert \
     --to notebook \
     --execute \
     --inplace \
